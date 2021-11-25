@@ -7,6 +7,10 @@ pub struct Opt {
     #[structopt(short, long)]
     pub rpc: Option<String>,
 
+    /// Timeout to override default value of 60 seconds
+    #[structopt(short, long, default_value = "60")]
+    pub timeout: u64,
+
     #[structopt(subcommand)]
     pub cmd: Command,
 }
@@ -135,6 +139,21 @@ pub enum SetSubcommands {
         /// Mint account of corresponding metadata to update
         #[structopt(short, long)]
         account: String,
+
+        /// New update authority address
+        #[structopt(short = "u", long)]
+        new_update_authority: String,
+    },
+    /// Set update authority on multiple accounts to a new account
+    #[structopt(name = "update-authority-all")]
+    UpdateAuthorityAll {
+        /// Path to the creator's keypair file
+        #[structopt(short, long)]
+        keypair: String,
+
+        /// Path to JSON mint accounts file
+        #[structopt(short = "a", long)]
+        mint_accounts_file: String,
 
         /// New update authority address
         #[structopt(short = "u", long)]

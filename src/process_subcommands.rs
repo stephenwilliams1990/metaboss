@@ -61,6 +61,16 @@ pub fn process_set(client: &RpcClient, commands: SetSubcommands) -> Result<()> {
             account,
             new_update_authority,
         } => set_update_authority(&client, &keypair, &account, &new_update_authority),
+        SetSubcommands::UpdateAuthorityAll {
+            keypair,
+            mint_accounts_file,
+            new_update_authority,
+        } => set_update_authority_all(
+            &client,
+            &keypair,
+            &mint_accounts_file,
+            &new_update_authority,
+        ),
     }
 }
 

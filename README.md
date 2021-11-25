@@ -145,6 +145,10 @@ Metaboss will try to read your Solana config settings for both the RPC endpoint 
 
 Running Metaboss with the `--rpc` option will override the above with whatever RPC endpoint the user provides.
 
+-t, --timeout <timeout> The timeout in seconds to use for RPC calls.
+
+This defaults to 60 seconds which should be fine for most cases but can be overriden if needed.
+
 ##### Usage
 
 ```bash
@@ -258,8 +262,28 @@ Outputs a TxId to the command line so you can check the result.
 Set `update_authority` to a different public key.
 
 ```bash
-metaboss set primary-sale-happened --keypair <PATH_TO_KEYPAIR> --account <MINT_ACCOUNT> --new-update-authority <NEW_UPDATE_AUTHORITY>
+metaboss set update-authority --keypair <PATH_TO_KEYPAIR> --account <MINT_ACCOUNT> --new-update-authority <NEW_UPDATE_AUTHORITY>
 ```
+
+#### Set Update-Authority-All
+
+Set `update_authority` to a different public key for a list of NFTs.
+
+```bash
+metaboss set update-authority-all --keypair <PATH_TO_KEYPAIR> --mint-accounts-file <PATH_TO_MINT_ACCOUNTS> --new-update-authority <NEW_UPDATE_AUTHORITY>
+```
+
+The mint accounts file should be a JSON file with an array of NFT mint accounts to be updated:
+
+```json
+[
+    "C2eGm8iQPnKVWxakyo8QhwJUvYrZHKF52DPQuAejpTWG",
+    "8GcRqxy4VAocTcAkoxCXkPCEmM36HMtjBc8ZarWhAD6o",
+    "CK2npuck3WTRNFXSdZv8YjudJJEa69EVGd6GFfeSzfGP"
+]
+```
+
+
 
 ### Sign
 
@@ -359,7 +383,7 @@ metaboss snapshot holders --candy-machine-id <CANDY_MACHINE_ID> --output <OUTPUT
 or
 
 ```bash
-metaboss snapshot holders --update_authority <UPDATE_AUTHORITY> --output <OUTPUT_DIR>
+metaboss snapshot holders --update-authority <UPDATE_AUTHORITY> --output <OUTPUT_DIR>
 ```
 
 Creates a JSON file in the output directory with the name format of `<CANDY_MACHINE_ID/UPDATE_AUTHORITY>_holders.json` consisting of an array of objects with the following fields:
@@ -395,7 +419,7 @@ metaboss snapshot mints --candy-machine-id <CANDY_MACHINE_ID> --output <OUTPUT_D
 or
 
 ```bash
-metaboss snapshot mints --update_authority <UPDATE_AUTHORITY> --output <OUTPUT_DIR>
+metaboss snapshot mints --update-authority <UPDATE_AUTHORITY> --output <OUTPUT_DIR>
 ```
 
 Creates a JSON file in the output directory with the name format of `<CANDY_MACHINE_ID/UPDATE_AUTHORITY>_mint_accounts.json` consisting of an array of mint accounts.
