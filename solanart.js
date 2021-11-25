@@ -1,0 +1,1 @@
+const url = 'https://qzlsklfacc.medianetwork.cloud/query_volume_per_collection?collection=degenape'
