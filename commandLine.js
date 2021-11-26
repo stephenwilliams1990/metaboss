@@ -5,6 +5,10 @@ import { collections } from './utils.js'
 
 console.log(process.cwd())
 
+function myfun(filePath){
+    return fs.readFileSync(filePath, 'utf8')
+  }
+  
 // collections.length
 const scrape = async() => {
     for (let j = 0; j < 1; j++) {
@@ -13,29 +17,25 @@ const scrape = async() => {
     
         console.log("Scraping data for collection:", collections[j].magicEdenSymbol)
     
-        const output = execSync(`metaboss -r ${rpc} snapshot holders --update-authority ${updateAuthority} --output ./snapshot`, { encoding: 'utf-8' });  // the default is 'buffer'
+        // const output = execSync(`metaboss -r ${rpc} snapshot holders --update-authority ${updateAuthority} --output ./snapshot`, { encoding: 'utf-8' });  // the default is 'buffer'
         console.log('Call finished, now extracting information from data');
         let tokens
         let unique
-    
-        fs.readFileSync(`./snapshot/${updateAuthority}_holders.json`, 'utf8', function(err, data){
-            
-            const json = JSON.parse(data);
-    
-            tokens = json.length
-    
-            let a = []
-    
-            for (let i=0; i < json.length; i++){
-                a.push(json[i].owner_wallet)
-            }
-            console.log("a", a)
-            unique = a.filter((item, i, ar) => ar.indexOf(item) === i)
-        });
-    
+        
+        const data = myfun(`./snapshot/${updateAuthority}_holders.json`)
+        const json = JSON.parse(data);
+
+        tokens = json.length
+
+        let a = []
+
+        for (let i=0; i < json.length; i++){
+            a.push(json[i].owner_wallet)
+        }
+        
+        unique = a.filter((item, i, ar) => ar.indexOf(item) === i)
 
         console.log("Token", tokens)
-        console.log("Holders", unique)
 
         const collection = collections[j].magicEdenSymbol
         let name = collection.replace(/_/g, " ");
