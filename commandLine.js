@@ -3,6 +3,7 @@ import fs from 'fs';
 import insertData from "./sql.js"
 import { collections } from './utils.js'
 
+console.log(process.cwd())
 
 // collections.length
 const scrape = async() => {
