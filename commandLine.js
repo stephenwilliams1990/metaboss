@@ -8,7 +8,7 @@ console.log(process.cwd())
 function myfun(filePath){
     return fs.readFileSync(filePath, 'utf8')
   }
-  
+
 // collections.length
 const scrape = async() => {
     for (let j = 0; j < 1; j++) {
@@ -17,7 +17,7 @@ const scrape = async() => {
     
         console.log("Scraping data for collection:", collections[j].magicEdenSymbol)
     
-        // const output = execSync(`metaboss -r ${rpc} snapshot holders --update-authority ${updateAuthority} --output ./snapshot`, { encoding: 'utf-8' });  // the default is 'buffer'
+        const output = execSync(`metaboss -r ${rpc} snapshot holders --update-authority ${updateAuthority} --output ./snapshot`, { encoding: 'utf-8' });  // the default is 'buffer'
         console.log('Call finished, now extracting information from data');
         let tokens
         let unique
