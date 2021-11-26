@@ -16,7 +16,12 @@ const scrape = async() => {
     
         console.log("Scraping data for collection:", collections[j].magicEdenSymbol)
     
-        const output = execSync(`/home/bitnami/metaboss/target/release/metaboss -r ${rpc} snapshot holders --update-authority ${updateAuthority} --output ./snapshot`, { encoding: 'utf-8' });  // the default is 'buffer'
+        execSync(`metaboss -r ${rpc} snapshot holders --update-authority ${updateAuthority} --output ./snapshot`, { encoding: 'utf-8' }, (error, stdout, stderr) => {
+            if (error) {
+                console.log(`error: ${error.message}`);
+                return;
+            }
+        });  // the default is 'buffer'
         console.log('Call finished, now extracting information from data');
         
         const data = myfun(`./snapshot/${updateAuthority}_holders.json`)
@@ -47,7 +52,7 @@ const scrape = async() => {
         const sqlDate = date.toISOString().split('T')[0] + ' ' + date.toTimeString().split(' ')[0];
         const row = [collection, name, tokens, unique.length, sqlDate]
         
-        await insertData(row)
+        //await insertData(row)
     }
 }
 scrape()
