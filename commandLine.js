@@ -24,7 +24,7 @@ const scrape = async() => {
         });  // the default is 'buffer'
         console.log('Call finished, now extracting information from data');
         
-        const data = myfun(`./snapshot/${updateAuthority}_holders.json`)
+        const data = myfun(`/home/bitnami/metaboss/snapshot/${updateAuthority}_holders.json`)
         const json = JSON.parse(data);
 
         const tokens = json.length
@@ -52,6 +52,7 @@ const scrape = async() => {
         const sqlDate = date.toISOString().split('T')[0] + ' ' + date.toTimeString().split(' ')[0];
         const row = [collection, name, tokens, unique.length, sqlDate]
         
+        console.log(row)
         //await insertData(row)
     }
 }
