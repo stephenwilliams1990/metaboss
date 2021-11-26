@@ -6,7 +6,7 @@ fs.readFile(`./snapshot/${updateAuthority}_holders.json`, 'utf8', function(err, 
             
     const json = JSON.parse(data);
 
-    tokens = json.length
+    const tokens = json.length
 
     let a = []
 
@@ -14,7 +14,7 @@ fs.readFile(`./snapshot/${updateAuthority}_holders.json`, 'utf8', function(err, 
         a.push(json[i].owner_wallet)
     }
 
-    unique = a.filter((item, i, ar) => ar.indexOf(item) === i)
+    const unique = a.filter((item, i, ar) => ar.indexOf(item) === i)
 
     console.log('Tokens', tokens, 'Holders', unique)
 });
