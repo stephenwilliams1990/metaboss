@@ -16,8 +16,7 @@ const scrape = async() => {
     
         console.log("Scraping data for collection:", collections[j].magicEdenSymbol)
         
-        execSync("echo Hello World")
-        execSync(`/home/bitnami/metaboss/target/release/metaboss -r ${rpc} snapshot holders --update-authority ${updateAuthority} --output ./snapshot`, { encoding: 'utf-8' }, (error, stdout, stderr) => {
+        execSync(`/home/bitnami/metaboss/target/release/metaboss -r ${rpc} snapshot holders --update-authority ${updateAuthority} --output /home/bitnami/metaboss/snapshot`, { encoding: 'utf-8' }, (error, stdout, stderr) => {
             if (error) {
                 console.log(`error: ${error.message}`);
                 return;
