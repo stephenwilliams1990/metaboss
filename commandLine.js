@@ -16,7 +16,7 @@ const scrape = async() => {
     
         console.log("Scraping data for collection:", collections[j].magicEdenSymbol)
     
-        const output = execSync(`metaboss -r ${rpc} snapshot holders --update-authority ${updateAuthority} --output ./snapshot`, { encoding: 'utf-8' });  // the default is 'buffer'
+        const output = execSync(`/home/bitnami/metaboss/target/release/metaboss -r ${rpc} snapshot holders --update-authority ${updateAuthority} --output ./snapshot`, { encoding: 'utf-8' });  // the default is 'buffer'
         console.log('Call finished, now extracting information from data');
         
         const data = myfun(`./snapshot/${updateAuthority}_holders.json`)
