@@ -11,7 +11,7 @@ export default async function insertCollectionData(arr) {
 
     const conn = await mysql.createConnection(db_config);
     const data = [arr]
-    const sql = "INSERT INTO collectionStats (Symbol, CollectionName, Listed, Floor, Average, Volume24, VolumeAll, Average24, TimeCreated) VALUES ?"
+    const sql = "INSERT INTO ownerStats (Symbol, CollectionName, Tokens, Holders, TimeCreated) VALUES ?"
     let [rows, _fields] = await conn.query(sql, [data])
     console.log("Number of records inserted: ", rows.affectedRows)
     conn.end()
