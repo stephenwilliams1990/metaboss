@@ -18,7 +18,7 @@ const scrape = async() => {
         let tokens
         let unique
     
-        fs.readFile(`./snapshot/${updateAuthority}_holders.json`, 'utf8', function(err, data){
+        fs.readFileSync(`./snapshot/${updateAuthority}_holders.json`, 'utf8', function(err, data){
             
             const json = JSON.parse(data);
     
