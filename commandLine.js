@@ -1,4 +1,4 @@
-import { execSync, spawnSync } from 'child_process';  
+import { execSync } from 'child_process';  
 import fs from 'fs';
 import insertData from "./sql.js"
 import { collections } from './utils.js'
@@ -52,8 +52,7 @@ const scrape = async() => {
         const sqlDate = date.toISOString().split('T')[0] + ' ' + date.toTimeString().split(' ')[0];
         const row = [collection, name, tokens, unique.length, sqlDate]
         
-        console.log(row)
-        //await insertData(row)
+        await insertData(row)
     }
 }
 scrape()
