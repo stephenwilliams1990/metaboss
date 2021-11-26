@@ -29,10 +29,14 @@ const scrape = async() => {
             for (let i=0; i < json.length; i++){
                 a.push(json[i].owner_wallet)
             }
-    
+            console.log("a", a)
             unique = a.filter((item, i, ar) => ar.indexOf(item) === i)
         });
     
+
+        console.log("Token", tokens)
+        console.log("Holders", unique)
+
         const collection = collections[j].magicEdenSymbol
         let name = collection.replace(/_/g, " ");
     
@@ -44,7 +48,6 @@ const scrape = async() => {
     
         name = arr.join(" ");
     
-        
         const date = new Date()
         const sqlDate = date.toISOString().split('T')[0] + ' ' + date.toTimeString().split(' ')[0];
         const row = [collection, name, tokens, unique.length, sqlDate]
