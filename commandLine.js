@@ -5,18 +5,6 @@ import fetch from "node-fetch";
 import insertData from "./sql.js"
 import { collections } from './utils.js'
 
-async function getFloor(url) {
-    const data = await fetch(url).then(
-        response => response.json()
-        .catch(error => {
-            console.log("Error in getFloor")
-        })
-    );
-    
-    return([data.results.floorPrice / LAMPORTS_PER_SOL, ( data.results.listedTotalValue / LAMPORTS_PER_SOL ) / data.results.listedCount, data.results.volume24hr / LAMPORTS_PER_SOL, data.results.volumeAll / LAMPORTS_PER_SOL, data.results.avgPrice24hr / LAMPORTS_PER_SOL, data.results.listedCount])
-
-}
-
 for (let j = 0; j < collections.length; j++) {
     const rpc = 'https://summer-snowy-forest.solana-mainnet.quiknode.pro/c9e3fa13ee9f099542ee7e7c3e17992b9f63b44f/'
     const updateAuthority = collections[j].updateAuthority
