@@ -15,8 +15,27 @@ export const collections = [
     {
         "updateAuthority": "pEsKYABNARLiDFYrjbjHDieD5h6gHrvYf9Vru62NX9k",
         "magicEdenSymbol": "pesky_penguins"
-    }
-    
+    },
+    {
+        "updateAuthority": "6xvFdAceHZbakLVHGpNxowQe3Bw7pPDzB8MVPHBbo6o7",
+        "magicEdenSymbol": "kyobo_drakes"
+    },
+    {
+        "updateAuthority": "CFBN6MWsbNWChQBLA7ucW3gj7rdWWQakQnFmtTVXZf2N",
+        "magicEdenSymbol": "meta_drago"
+    },
+    {
+        "updateAuthority": "BvZNQHKpUjPsC7jGaB2qpbSqZo4P41dWYRZGvGb4wuty",
+        "magicEdenSymbol": "cool_baby_kaiju"
+    },
+    {
+        "updateAuthority": "976smoW7LjLZgzpj3UmVNmHUzbVHJUyLKvp9uqTFtZnp",
+        "magicEdenSymbol": "fenix_danjon"
+    },
+    {
+        "updateAuthority": "DRGNjvBvnXNiQz9dTppGk1tAsVxtJsvhEmojEfBU3ezf",
+        "magicEdenSymbol": "boryoku_dragonz"
+    }    
 ]
 
 
