@@ -11,6 +11,10 @@ pub struct Opt {
     #[structopt(short, long, default_value = "60")]
     pub timeout: u64,
 
+    /// Log level
+    #[structopt(short, long, default_value = "warn")]
+    pub log_level: String,
+
     #[structopt(subcommand)]
     pub cmd: Command,
 }
@@ -94,6 +98,10 @@ pub enum MintSubcommands {
         /// Mint the NFT with immutable data fields
         #[structopt(short, long)]
         immutable: bool,
+
+        /// Mint the NFT with primary_sale_happened set to true
+        #[structopt(short, long)]
+        primary_sale_happened: bool,
     },
     #[structopt(name = "list")]
     /// Mint a list of NFTs from a directory of JSON files
@@ -113,6 +121,10 @@ pub enum MintSubcommands {
         /// Mint the NFTs with immutable data fields
         #[structopt(short, long)]
         immutable: bool,
+
+        /// Mint the NFTs with primary_sale_happened set to true
+        #[structopt(short, long)]
+        primary_sale_happened: bool,
     },
 }
 
@@ -253,6 +265,17 @@ pub enum UpdateSubcommands {
         #[structopt(short, long)]
         new_data_file: String,
     },
+    /// UPdate the data struct on a list of NFTs
+    #[structopt(name = "data-all")]
+    DataAll {
+        /// Path to the creator's keypair file
+        #[structopt(short, long)]
+        keypair: String,
+
+        /// Path to directory containing JSON files with new data
+        #[structopt(short, long)]
+        data_dir: String,
+    },
     /// Update the metadata URI, keeping the rest of the data the same
     #[structopt(name = "uri")]
     Uri {
@@ -267,5 +290,16 @@ pub enum UpdateSubcommands {
         /// New uri
         #[structopt(short = "u", long)]
         new_uri: String,
+    },
+    /// Update the metadata URI on a list of mint accounts
+    #[structopt(name = "uri-all")]
+    UriAll {
+        /// Path to the creator's keypair file
+        #[structopt(short, long)]
+        keypair: String,
+
+        /// JSON file with list of mint accounts and new URIs
+        #[structopt(short = "u", long)]
+        json_file: String,
     },
 }

@@ -1,6 +1,11 @@
 use anyhow::{anyhow, Result};
 use glob::glob;
-use metaplex_token_metadata::instruction::{create_master_edition, create_metadata_accounts};
+use indicatif::ParallelProgressIterator;
+use log::{error, info};
+use metaplex_token_metadata::instruction::{
+    create_master_edition, create_metadata_accounts, update_metadata_accounts,
+};
+use rayon::prelude::*;
 use solana_client::rpc_client::RpcClient;
 use solana_sdk::{
     pubkey::Pubkey,
@@ -28,35 +33,48 @@ pub fn mint_list(
     receiver: Option<String>,
     list_dir: String,
     immutable: bool,
+    primary_sale_happened: bool,
 ) -> Result<()> {
     let path = Path::new(&list_dir).join("*.json");
     let pattern = path.to_str().ok_or(anyhow!("Invalid directory path"))?;
 
-    for res in glob(pattern)? {
-        match res {
-            Ok(path) => {
-                let file_path = path.to_str().ok_or(anyhow!("Invalid directory path"))?;
-                mint_one(
-                    client,
-                    &keypair,
-                    &receiver,
-                    file_path.to_string(),
-                    immutable,
-                )?;
-            }
-            Err(e) => return Err(anyhow!("GlobError on path: {}", e)),
+    let (paths, errors): (Vec<_>, Vec<_>) = glob(pattern)?.into_iter().partition(Result::is_ok);
+
+    let paths: Vec<_> = paths.into_iter().map(Result::unwrap).collect();
+    let errors: Vec<_> = errors.into_iter().map(Result::unwrap_err).collect();
+
+    paths.par_iter().progress().for_each(|path| {
+        match mint_one(
+            client,
+            &keypair,
+            &receiver,
+            path,
+            immutable,
+            primary_sale_happened,
+        ) {
+            Ok(_) => (),
+            Err(e) => error!("Failed to mint {:?}: {}", &path, e),
+        }
+    });
+
+    // TODO: handle errors in a better way.
+    if !errors.is_empty() {
+        error!("Failed to read some of the files with the following errors:");
+        for error in errors {
+            error!("{}", error);
         }
     }
 
     Ok(())
 }
 
-pub fn mint_one(
+pub fn mint_one<P: AsRef<Path>>(
     client: &RpcClient,
     keypair: &String,
     receiver: &Option<String>,
-    nft_data_file: String,
+    nft_data_file: P,
     immutable: bool,
+    primary_sale_happened: bool,
 ) -> Result<()> {
     let keypair = parse_keypair(&keypair)?;
 
@@ -69,8 +87,16 @@ pub fn mint_one(
     let f = File::open(nft_data_file)?;
     let nft_data: NFTData = serde_json::from_reader(f)?;
 
-    let (tx_id, mint_account) = mint(client, keypair, receiver, nft_data, immutable)?;
+    let (tx_id, mint_account) = mint(
+        client,
+        keypair,
+        receiver,
+        nft_data,
+        immutable,
+        primary_sale_happened,
+    )?;
     println!("Tx id: {:?}\nMint account: {:?}", tx_id, mint_account);
+    info!("Tx id: {:?}\nMint account: {:?}", tx_id, mint_account);
 
     Ok(())
 }
@@ -81,6 +107,7 @@ pub fn mint(
     receiver: Pubkey,
     nft_data: NFTData,
     immutable: bool,
+    primary_sale_happened: bool,
 ) -> Result<(Signature, Pubkey)> {
     let metaplex_program_id = Pubkey::from_str(METAPLEX_PROGRAM_ID)?;
     let mint = Keypair::new();
@@ -172,7 +199,7 @@ pub fn mint(
         Some(0),
     );
 
-    let instructions = &[
+    let mut instructions = vec![
         create_mint_account_ix,
         init_mint_ix,
         create_assoc_account_ix,
@@ -181,9 +208,21 @@ pub fn mint(
         create_master_edition_account_ix,
     ];
 
+    if primary_sale_happened {
+        let ix = update_metadata_accounts(
+            metaplex_program_id,
+            metadata_account,
+            funder.pubkey(),
+            None,
+            None,
+            Some(true),
+        );
+        instructions.push(ix);
+    }
+
     let (recent_blockhash, _) = client.get_recent_blockhash()?;
     let tx = Transaction::new_signed_with_payer(
-        instructions,
+        &instructions,
         Some(&funder.pubkey()),
         &[&funder, &mint],
         recent_blockhash,

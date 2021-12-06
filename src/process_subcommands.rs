@@ -26,28 +26,29 @@ pub fn process_mint(client: &RpcClient, commands: MintSubcommands) -> Result<()>
             receiver,
             nft_data_file,
             immutable,
-        } => mint_one(&client, &keypair, &receiver, nft_data_file, immutable),
+            primary_sale_happened,
+        } => mint_one(
+            &client,
+            &keypair,
+            &receiver,
+            &nft_data_file,
+            immutable,
+            primary_sale_happened,
+        ),
         MintSubcommands::List {
             keypair,
             receiver,
             nft_data_dir,
             immutable,
-        } => mint_list(&client, keypair, receiver, nft_data_dir, immutable),
-    }
-}
-
-pub fn process_update(client: &RpcClient, commands: UpdateSubcommands) -> Result<()> {
-    match commands {
-        UpdateSubcommands::Data {
+            primary_sale_happened,
+        } => mint_list(
+            &client,
             keypair,
-            account,
-            new_data_file,
-        } => update_data(&client, &keypair, &account, &new_data_file),
-        UpdateSubcommands::Uri {
-            keypair,
-            account,
-            new_uri,
-        } => update_uri(&client, &keypair, &account, &new_uri),
+            receiver,
+            nft_data_dir,
+            immutable,
+            primary_sale_happened,
+        ),
     }
 }
 
@@ -101,5 +102,26 @@ pub fn process_snapshot(client: &RpcClient, commands: SnapshotSubcommands) -> Re
             update_authority,
             output,
         } => snapshot_mints(&client, candy_machine_id, update_authority, output),
+    }
+}
+
+pub fn process_update(client: &RpcClient, commands: UpdateSubcommands) -> Result<()> {
+    match commands {
+        UpdateSubcommands::Data {
+            keypair,
+            account,
+            new_data_file,
+        } => update_data_one(&client, &keypair, &account, &new_data_file),
+        UpdateSubcommands::DataAll { keypair, data_dir } => {
+            update_data_all(&client, &keypair, &data_dir)
+        }
+        UpdateSubcommands::Uri {
+            keypair,
+            account,
+            new_uri,
+        } => update_uri_one(&client, &keypair, &account, &new_uri),
+        UpdateSubcommands::UriAll { keypair, json_file } => {
+            update_uri_all(&client, &keypair, &json_file)
+        }
     }
 }
