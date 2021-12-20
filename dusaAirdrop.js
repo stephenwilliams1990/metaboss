@@ -71,15 +71,11 @@ const scrape = async() => {
     }   
 
     const unique = a.filter((item, i, ar) => ar.indexOf(item) === i)
-    console.log(unique[116])
 
-    for (let i = 0; i < unique.length; i++) {
+    for (let i = 116; i < unique.length; i++) {
         if (unique[i] !== magicEden) {
-            //console.log(`Sending ${counts[unique[i]] * 500} tokens to ${unique[i]}`)
-            if (unique[i] === 'CbVzcEjStvk2J8eDSRmkdVrrmhGRiKuqsEXKEqunSbxu') {
-                console.log(`WE ARE UP TO NUMBER: ${i}`)
-            }
-            //await transfer(TOKEN_ADDRESS, wallet, unique[i], connection, (counts[unique[i]] * 500) * LAMPORTS_PER_SOL) 
+            console.log(`Sending ${counts[unique[i]] * 500} tokens to ${unique[i]}`)
+            await transfer(TOKEN_ADDRESS, wallet, unique[i], connection, (counts[unique[i]] * 500) * LAMPORTS_PER_SOL) 
         } else {
             console.log("Magic Eden")
         }
