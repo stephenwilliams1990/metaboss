@@ -37,5 +37,3 @@ export const collections = [
         "magicEdenSymbol": "boryoku_dragonz"
     }    
 ]
-
-

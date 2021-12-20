@@ -6,6 +6,7 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
+    "@solana/spl-token": "^0.1.8",
     "@solana/web3.js": "^1.30.2",
     "mysql": "^2.18.1",
     "mysql2": "^2.3.3",
