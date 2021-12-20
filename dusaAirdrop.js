@@ -34,8 +34,8 @@ const scrape = async() => {
     
     console.log('Call finished, now extracting information from data');
     
-    const data = myfun(`/home/bitnami/metaboss/snapshot/${candy}_holders.json`)
-    // const data = myfun(`./snapshot/${candy}_holders.json`)
+    //const data = myfun(`/home/bitnami/metaboss/snapshot/${candy}_holders.json`)
+    const data = myfun(`./snapshot/${candy}_holders.json`)
     
     const json = JSON.parse(data);
 
