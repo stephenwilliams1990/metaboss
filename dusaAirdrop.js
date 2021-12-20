@@ -63,7 +63,7 @@ const scrape = async() => {
     );
 
     const magicEden = 'GUfCR9mK6azb9vcpsxgXyj7XRPAKJd4KMHTTVvtncGgp'
-    
+
     const counts = {};
 
     for (const num of a) {
@@ -75,7 +75,7 @@ const scrape = async() => {
     for (let i = 0; i < unique.length; i++) {
         if (unique[i] !== magicEden) {
             console.log(`Sending ${counts[unique[i]] * 500} tokens to ${unique[i]}`)
-            await transfer(TOKEN_ADDRESS, wallet, address, connection, amount * LAMPORTS_PER_SOL) 
+            await transfer(TOKEN_ADDRESS, wallet, unique[i], connection, (counts[unique[i]] * 500) * LAMPORTS_PER_SOL) 
         } else {
             console.log("Magic Eden")
         }
