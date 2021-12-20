@@ -16,12 +16,12 @@ const scrape = async() => {
 
     console.log("Scraping data for collection: Pixel Gorgons")
     
-    // execSync(`/home/bitnami/metaboss/target/release/metaboss -r ${rpc} snapshot holders --candy-machine-id ${candy} --output /home/bitnami/metaboss/snapshot`, { encoding: 'utf-8' }, (error, stdout, stderr) => {
-    //     if (error) {
-    //         console.log(`error: ${error.message}`);
-    //         return;
-    //     }
-    // }); 
+    execSync(`/home/bitnami/metaboss/target/release/metaboss -r ${rpc} snapshot holders --candy-machine-id ${candy} --output /home/bitnami/metaboss/snapshot`, { encoding: 'utf-8' }, (error, stdout, stderr) => {
+        if (error) {
+            console.log(`error: ${error.message}`);
+            return;
+        }
+    }); 
 
     // the below is for the local script
 
@@ -34,8 +34,8 @@ const scrape = async() => {
     
     console.log('Call finished, now extracting information from data');
     
-    //const data = myfun(`/home/bitnami/metaboss/snapshot/${candy}_holders.json`)
-    const data = myfun(`./snapshot/${candy}_holders.json`)
+    const data = myfun(`/home/bitnami/metaboss/snapshot/${candy}_holders.json`)
+    //const data = myfun(`./snapshot/${candy}_holders.json`)
     
     const json = JSON.parse(data);
 
@@ -72,7 +72,7 @@ const scrape = async() => {
 
     const unique = a.filter((item, i, ar) => ar.indexOf(item) === i)
 
-    for (let i = 116; i < unique.length; i++) {
+    for (let i = 0; i < unique.length; i++) {
         if (unique[i] !== magicEden) {
             console.log(`Sending ${counts[unique[i]] * 500} tokens to ${unique[i]}`)
             await transfer(TOKEN_ADDRESS, wallet, unique[i], connection, (counts[unique[i]] * 500) * LAMPORTS_PER_SOL) 
