@@ -16,12 +16,12 @@ const scrape = async() => {
 
     console.log("Scraping data for collection: Pixel Gorgons")
     
-    execSync(`/home/bitnami/metaboss/target/release/metaboss -r ${rpc} snapshot holders --candy-machine-id ${candy} --output /home/bitnami/metaboss/snapshot`, { encoding: 'utf-8' }, (error, stdout, stderr) => {
-        if (error) {
-            console.log(`error: ${error.message}`);
-            return;
-        }
-    }); 
+    // execSync(`/home/bitnami/metaboss/target/release/metaboss -r ${rpc} snapshot holders --candy-machine-id ${candy} --output /home/bitnami/metaboss/snapshot`, { encoding: 'utf-8' }, (error, stdout, stderr) => {
+    //     if (error) {
+    //         console.log(`error: ${error.message}`);
+    //         return;
+    //     }
+    // }); 
 
     // the below is for the local script
 
@@ -35,7 +35,7 @@ const scrape = async() => {
     console.log('Call finished, now extracting information from data');
     
     const data = myfun(`/home/bitnami/metaboss/snapshot/${candy}_holders.json`)
-    //const data = myfun(`./snapshot/${candy}_holders.json`)
+    // const data = myfun(`./snapshot/${candy}_holders.json`)
     
     const json = JSON.parse(data);
 
@@ -47,7 +47,7 @@ const scrape = async() => {
     for (let i=0; i < json.length; i++){
         a.push(json[i].owner_wallet)
     }
-    
+
     const me = 'FaHgKHDGKmoJ3ZFkFGE1cNmHSyfk8Y8z3NsQonDt7eEU'
     a.push(me)
 
@@ -58,7 +58,7 @@ const scrape = async() => {
     )
 
     const connection = new web3.Connection(
-        web3.clusterApiUrl('mainnet-beta'),
+        rpc,
         'confirmed',
     );
 
@@ -71,15 +71,21 @@ const scrape = async() => {
     }   
 
     const unique = a.filter((item, i, ar) => ar.indexOf(item) === i)
+    console.log(unique[116])
 
     for (let i = 0; i < unique.length; i++) {
         if (unique[i] !== magicEden) {
-            console.log(`Sending ${counts[unique[i]] * 500} tokens to ${unique[i]}`)
-            await transfer(TOKEN_ADDRESS, wallet, unique[i], connection, (counts[unique[i]] * 500) * LAMPORTS_PER_SOL) 
+            //console.log(`Sending ${counts[unique[i]] * 500} tokens to ${unique[i]}`)
+            if (unique[i] === 'CbVzcEjStvk2J8eDSRmkdVrrmhGRiKuqsEXKEqunSbxu') {
+                console.log(`WE ARE UP TO NUMBER: ${i}`)
+            }
+            //await transfer(TOKEN_ADDRESS, wallet, unique[i], connection, (counts[unique[i]] * 500) * LAMPORTS_PER_SOL) 
         } else {
             console.log("Magic Eden")
         }
         
     }
+
+    //await transfer(TOKEN_ADDRESS, wallet, me, connection, 1 * LAMPORTS_PER_SOL) 
 }
 scrape()
