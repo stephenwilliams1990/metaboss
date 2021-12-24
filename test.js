@@ -1,20 +1,14 @@
 import fs from 'fs';
+import { collections } from './utils.js'
 
-const updateAuthority = "EVbtsbmo7Av16n4ruYQLNTmCbTdcSRwNZbMsCZeCvGg8"
-
-fs.readFile(`./snapshot/${updateAuthority}_holders.json`, 'utf8', function(err, data){
-            
-    const json = JSON.parse(data);
-
-    const tokens = json.length
-
-    let a = []
-
-    for (let i=0; i < json.length; i++){
-        a.push(json[i].owner_wallet)
+for (let i=0; i<collections.length; i++) {
+    if (collections[i].updateAuthority) {
+        for (let j=0; j < collections[i].updateAuthority.length; j++) {
+            console.log(collections[i].updateAuthority[j])
+        }
+    } else {
+        for (let j=0; j < collections[i].candy.length; j++) {
+            console.log(collections[i].candy[j])
+        }
     }
-
-    const unique = a.filter((item, i, ar) => ar.indexOf(item) === i)
-
-    console.log('Tokens', tokens, 'Holders', unique)
-});
+}

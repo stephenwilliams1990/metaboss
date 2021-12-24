@@ -12,27 +12,53 @@ function myfun(filePath){
 const scrape = async() => {
     for (let j = 0; j < collections.length; j++) {
         const rpc = 'https://summer-snowy-forest.solana-mainnet.quiknode.pro/c9e3fa13ee9f099542ee7e7c3e17992b9f63b44f/'
-        const updateAuthority = collections[j].updateAuthority
     
         console.log("Scraping data for collection:", collections[j].magicEdenSymbol)
         
-        execSync(`/home/bitnami/metaboss/target/release/metaboss -r ${rpc} snapshot holders --update-authority ${updateAuthority} --output /home/bitnami/metaboss/snapshot`, { encoding: 'utf-8' }, (error, stdout, stderr) => {
-            if (error) {
-                console.log(`error: ${error.message}`);
-                return;
-            }
-        });  // the default is 'buffer'
-        console.log('Call finished, now extracting information from data');
-        
-        const data = myfun(`/home/bitnami/metaboss/snapshot/${updateAuthority}_holders.json`)
-        const json = JSON.parse(data);
-
-        const tokens = json.length
-
         let a = []
+        let tokens = 0
 
-        for (let i=0; i < json.length; i++){
-            a.push(json[i].owner_wallet)
+        for (let k = 0; k < collections[j].ids.length; k++) {
+            execSync(`/home/bitnami/metaboss/target/release/metaboss -r ${rpc} snapshot holders --${collections[j].type} ${collections[j].ids[k]} --output /home/bitnami/metaboss/snapshot`, { encoding: 'utf-8' }, (error, stdout, stderr) => {
+                if (error) {
+                    console.log(`error: ${error.message}`);
+                    return;
+                }
+            });  // the default is 'buffer'
+
+            //local copy
+
+            // execSync(`metaboss -r ${rpc} snapshot holders --${collections[j].type} ${collections[j].ids[k]} --output ./snapshot`, { encoding: 'utf-8' }, (error, stdout, stderr) => {
+            //     if (error) {
+            //         console.log(`error: ${error.message}`);
+            //         return;
+            //     }
+            // });  // the default is 'buffer'
+
+            console.log('Call finished, now extracting information from data');
+            
+            const data = myfun(`/home/bitnami/metaboss/snapshot/${collections[j].ids[k]}_holders.json`)
+            // const data = myfun(`./snapshot/${collections[j].ids[k]}_holders.json`)
+            const json = JSON.parse(data);
+
+            // insert code here to deal with boryoku dragonz special case
+
+            // if (collections[j].magicEdenSymbol === "boryoku_dragonz") {
+            //     execSync(`metaboss -r ${rpc} snapshot holders --${collections[j].type} ${collections[j].ids[k]} --output ./snapshot`, { encoding: 'utf-8' }, (error, stdout, stderr) => {
+            //         if (error) {
+            //             console.log(`error: ${error.message}`);
+            //             return;
+            //         }
+            //     }); 
+            // }
+
+            tokens += json.length
+
+            console.log(tokens)
+    
+            for (let i=0; i < json.length; i++){
+                a.push(json[i].owner_wallet)
+            }
         }
         
         const unique = a.filter((item, i, ar) => ar.indexOf(item) === i)
