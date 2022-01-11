@@ -75,7 +75,6 @@ export async function transfer(tokenMintAddress, wallet, to, connection, amount)
                 [wallet],
                 {commitment: 'confirmed'},
             );
-            console.log('SIGNATURE', signature);
             break;
         } catch (err) {
             setTimeout(() => {  console.log('Error in confirming transaction, retry number: ', 4 - numTries ); }, 100000);

@@ -24,7 +24,7 @@ const collections = [
 ]
 
 const scrape = async() => {
-    const rpc = 'https://summer-snowy-forest.solana-mainnet.quiknode.pro/c9e3fa13ee9f099542ee7e7c3e17992b9f63b44f/'
+    const rpc = 'https://ssc-dao.genesysgo.net/'
     
     for (let j = 0; j < collections.length; j++) {
         const candy = collections[j].candy
@@ -68,8 +68,9 @@ const scrape = async() => {
 
         const TOKEN_ADDRESS = 'GENW9qVvxHMVmRTVokgHRPqSr3syV2AmKoehqrRWiYFu'
 
+        const MY_SECRET_KEY = process.env.MY_SECRET_KEY.split(",")
         const wallet = web3.Keypair.fromSecretKey(
-            new Uint8Array([111,200,137,8,213,159,247,110,232,241,179,157,248,168,146,216,217,24,185,212,179,241,210,0,112,70,56,8,42,185,103,54,115,55,164,139,84,26,226,212,88,17,54,143,95,189,177,18,156,126,54,245,71,182,177,222,31,16,180,233,206,5,221,15])
+            new Uint8Array(MY_SECRET_KEY)
         )
 
         const connection = new web3.Connection(
@@ -101,5 +102,7 @@ const scrape = async() => {
 
         //await transfer(TOKEN_ADDRESS, wallet, me, connection, 1 * LAMPORTS_PER_SOL) 
     }
+
+    console.log("Airdrop completed successfully")
 }
 scrape()
