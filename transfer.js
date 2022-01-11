@@ -66,12 +66,22 @@ export async function transfer(tokenMintAddress, wallet, to, connection, amount)
     );
 
     // Sign transaction, broadcast, and confirm
-    const signature = await web3.sendAndConfirmTransaction(
-        connection,
-        transaction,
-        [wallet],
-        {commitment: 'confirmed'},
-    );
-    console.log('SIGNATURE', signature);
+    let numTries = 3;            
+    while (true) {
+        try {
+            const signature = await web3.sendAndConfirmTransaction(
+                connection,
+                transaction,
+                [wallet],
+                {commitment: 'confirmed'},
+            );
+            console.log('SIGNATURE', signature);
+            break;
+        } catch (err) {
+            setTimeout(() => {  console.log('Error in confirming transaction, retry number: ', 4 - numTries ); }, 100000);
+            if (--numTries == 0) throw err;
+        }
+    }
+    
 };
 
