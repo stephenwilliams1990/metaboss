@@ -7,7 +7,7 @@ import fs from 'fs';
 
 const candyMachine = 'A6XTVFiwGVsG6b6LsvQTGnV5LH3Pfa3qW3TGz8RjToLp'
 
-const data = fs.readFileSync(`snapshots/${candyMachine}_holders.json`)
+const data = fs.readFileSync(`snapshot/${candyMachine}_holders.json`)
 const json = JSON.parse(data)
 
 const connection = new Connection(clusterApiUrl('mainnet-beta'))
