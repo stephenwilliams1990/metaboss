@@ -47,10 +47,10 @@ import fs from 'fs';
         for (let a=0; a<attributes.length; a++) {
             json[i][(attributes[a].trait_type)] = attributes[a].value
         }
-        
-        if (i % 100 === 0) {
-            console.log(i)
-        }
+        console.log(i)
+        // if (i % 100 === 0) {
+        //     console.log(i)
+        // }
     }
 
     const jsonContent = JSON.stringify(json)
