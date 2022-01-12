@@ -14,7 +14,7 @@ import fs from 'fs';
     const connection = new Connection(clusterApiUrl('mainnet-beta'))
     let collection;
 
-    for (let i=0; i<100; i++) {
+    for (let i=0; i<json.length; i++) {
         const metadata = json[i].metadata_account
 
         const tokenMetadata = await Metadata.load(connection, metadata);
@@ -47,14 +47,15 @@ import fs from 'fs';
         for (let a=0; a<attributes.length; a++) {
             json[i][(attributes[a].trait_type)] = attributes[a].value
         }
-        console.log(i)
-        // if (i % 100 === 0) {
-        //     console.log(i)
-        // }
+        
+        if (i % 100 === 0) {
+            console.log(i)
+        }
     }
 
     const jsonContent = JSON.stringify(json)
     fs.writeFileSync(`${collection.replace(" ", "")}.json`, jsonContent, 'utf-8')
+    console.log('All done!')
 })()
 
 
