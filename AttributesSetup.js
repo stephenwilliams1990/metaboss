@@ -14,7 +14,7 @@ import fs from 'fs';
     const connection = new Connection(clusterApiUrl('mainnet-beta'))
     let collection;
 
-    for (let i=0; i<json.length; i++) {
+    for (let i=0; i<200; i++) {
         const metadata = json[i].metadata_account
 
         const tokenMetadata = await Metadata.load(connection, metadata);
