@@ -24,7 +24,7 @@ const collections = [
 ]
 
 const scrape = async() => {
-    const rpc = 'https://ssc-dao.genesysgo.net/'
+    const rpc = 'https://summer-snowy-forest.solana-mainnet.quiknode.pro/c9e3fa13ee9f099542ee7e7c3e17992b9f63b44f/'
     
     for (let j = 0; j < collections.length; j++) {
         const candy = collections[j].candy
