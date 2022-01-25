@@ -12,5 +12,8 @@
     "mysql": "^2.18.1",
     "mysql2": "^2.3.3",
     "xhr2": "^0.2.1"
+  },
+  "devDependencies": {
+    "dotenv": "^14.3.0"
   }
 }

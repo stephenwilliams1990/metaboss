@@ -10,17 +10,16 @@ function myfun(filePath){
     return fs.readFileSync(filePath, 'utf8')
 }
 
-// remove the multiple of 5 !
 const collections = [
     {
         "candy" : "7yDY84DvQV1bG1vC2ox967bPHSiTiw7KW5P3f1bv2f7P",
         "name" : "Pixel Gorgons",
-        "amount" : 500 * 5
+        "amount" : 500
     },
     {
         "candy" : "BqVYhy5mBuzzdtauSUrEUZDFxuk2ERe9J29ciwTa7fiu",
         "name" : "HD Gorgons",
-        "amount" : 250 * 5
+        "amount" : 250
     }
 ]
 
@@ -32,7 +31,7 @@ const scrape = async() => {
 
         console.log(`Scraping data for collection: ${collections[j].name}`)
         
-        let numTries = 1000;
+        let numTries = 100;
         const tryStart = numTries + 1                 
         while (true) {
             try {
@@ -43,10 +42,10 @@ const scrape = async() => {
                 if (--numTries == 0) throw err;
             }
         }
-            
-        // the below is for the local script
 
-        // execSync(`metaboss -r ${rpc} snapshot holders --candy-machine-id ${candy} --output ./snapshot`, { encoding: 'utf-8' }, (error, stdout, stderr) => {
+        // the below is for the local script
+        
+        // execSync(`metaboss -t 90 -r ${rpc} snapshot holders --candy-machine-id ${candy} --output ./snapshot`, { encoding: 'utf-8' }, (error, stdout, stderr) => {
         //     if (error) {
         //         console.log(`error: ${error.message}`);
         //         return;

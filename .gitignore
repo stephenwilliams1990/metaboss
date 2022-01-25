@@ -3,3 +3,5 @@
 /binaries
 .test_files
 node_modules
+.env
+play.js

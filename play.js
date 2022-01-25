@@ -1,11 +1,5 @@
 import fs from 'fs'
+import { clusterApiUrl, Connection } from "@solana/web3.js"
+import { Token,TOKEN_PROGRAM_ID } from "@solana/spl-token"
+import { web3, Wallet } from "@project-serum/anchor";
 
-function myfun(filePath){
-    return fs.readFileSync(filePath, 'utf8')
-}
-const data = myfun(`./snapshot/BqVYhy5mBuzzdtauSUrEUZDFxuk2ERe9J29ciwTa7fiu_mint_accounts.json`)
-const json = JSON.parse(data);
-
-const tokens = json.length
-
-console.log(tokens)

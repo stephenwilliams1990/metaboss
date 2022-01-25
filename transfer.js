@@ -21,13 +21,19 @@ export async function transfer(tokenMintAddress, wallet, to, connection, amount)
         wallet.publicKey,
     );
     
-    const associatedDestinationTokenAddr = await Token.getAssociatedTokenAddress(
-        mint.associatedProgramId,
-        mint.programId,
-        mintPublicKey,
-        destPublicKey
-      );
-
+    let associatedDestinationTokenAddr
+    try {
+        associatedDestinationTokenAddr = await Token.getAssociatedTokenAddress(
+            mint.associatedProgramId,
+            mint.programId,
+            mintPublicKey,
+            destPublicKey
+        );
+    } catch (err) {
+        console.log("Error finding ATA, skipping to next")
+        return
+    }
+    
     const receiverAccount = await connection.getAccountInfo(associatedDestinationTokenAddr);
     
     console.log(associatedDestinationTokenAddr.toString())
@@ -66,7 +72,7 @@ export async function transfer(tokenMintAddress, wallet, to, connection, amount)
     );
 
     // Sign transaction, broadcast, and confirm
-    let numTries = 100;
+    let numTries = 3
     const tryStart = numTries + 1            
     while (true) {
         try {
