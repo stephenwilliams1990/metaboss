@@ -19,7 +19,7 @@ const scrape = async() => {
         let tokens = 0
 
         for (let k = 0; k < collections[j].ids.length; k++) {
-            execSync(`/home/bitnami/metaboss/target/release/metaboss -r ${rpc} snapshot holders --${collections[j].type} ${collections[j].ids[k]} --output /home/bitnami/metaboss/snapshot`, { encoding: 'utf-8' }, (error, stdout, stderr) => {
+            execSync(`/home/bitnami/metaboss/target/release/metaboss -t 90 -r ${rpc} snapshot holders --${collections[j].type} ${collections[j].ids[k]} --output /home/bitnami/metaboss/snapshot`, { encoding: 'utf-8' }, (error, stdout, stderr) => {
                 if (error) {
                     console.log(`error: ${error.message}`);
                     return;

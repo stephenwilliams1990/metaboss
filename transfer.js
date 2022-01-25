@@ -66,7 +66,8 @@ export async function transfer(tokenMintAddress, wallet, to, connection, amount)
     );
 
     // Sign transaction, broadcast, and confirm
-    let numTries = 3;            
+    let numTries = 100;
+    const tryStart = numTries + 1            
     while (true) {
         try {
             const signature = await web3.sendAndConfirmTransaction(
@@ -77,7 +78,7 @@ export async function transfer(tokenMintAddress, wallet, to, connection, amount)
             );
             break;
         } catch (err) {
-            setTimeout(() => {  console.log('Error in confirming transaction, retry number: ', 4 - numTries ); }, 100000);
+            setTimeout(() => {  console.log('Error in confirming transaction, retry number: ', tryStart - numTries ); }, 100000);
             if (--numTries == 0) throw err;
         }
     }
