@@ -20,6 +20,16 @@ const collections = [
         "candy" : "BqVYhy5mBuzzdtauSUrEUZDFxuk2ERe9J29ciwTa7fiu",
         "name" : "HD Gorgons",
         "amount" : 250
+    },
+    {
+        "candy" : "GBAFDjD3SgrsLP6a1tYsosq9x43b9GmhV8dbBhvyBUyE",
+        "name" : "Seamonsters",
+        "amount" : 250
+    },
+    {
+        "candy" : "79NBRE6JGxjUh5E68bv97SyWjiDVKhhxpq3myt2esnG8",
+        "name" : "Pegasus",
+        "amount" : 500
     }
 ]
 

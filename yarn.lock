@@ -37,6 +37,19 @@
     "@ethersproject/logger" "^5.5.0"
     "hash.js" "1.1.7"
 
+"@fast-csv/parse@^4.3.6":
+  "integrity" "sha512-uRsLYksqpbDmWaSmzvJcuApSEe38+6NQZBUsuAyMZKqHxH0g1wcJgsKUvN3WC8tewaqFjBMMGrkHmC+T7k8LvA=="
+  "resolved" "https://registry.npmjs.org/@fast-csv/parse/-/parse-4.3.6.tgz"
+  "version" "4.3.6"
+  dependencies:
+    "@types/node" "^14.0.1"
+    "lodash.escaperegexp" "^4.1.2"
+    "lodash.groupby" "^4.6.0"
+    "lodash.isfunction" "^3.0.9"
+    "lodash.isnil" "^4.0.0"
+    "lodash.isundefined" "^3.0.1"
+    "lodash.uniq" "^4.5.0"
+
 "@metaplex-foundation/mpl-core@^0.0.2":
   "integrity" "sha512-UUJ4BlYiWdDegAWmjsNQiNehwYU3QfSFWs3sv4VX0J6/ZrQ28zqosGhQ+I2ZCTEy216finJ82sZWNjuwSWCYyQ=="
   "resolved" "https://registry.npmjs.org/@metaplex-foundation/mpl-core/-/mpl-core-0.0.2.tgz"
@@ -170,6 +183,11 @@
   "integrity" "sha512-i1KGxqcvJaLQali+WuypQnXwcplhtNtjs66eNsZpp2P2FL/trJJxx/VWsM0YCL2iMoIJrbXje48lvIQAQ4p2ZA=="
   "resolved" "https://registry.npmjs.org/@types/node/-/node-12.20.37.tgz"
   "version" "12.20.37"
+
+"@types/node@^14.0.1":
+  "integrity" "sha512-6iihJ/Pp5fsFJ/aEDGyvT4pHGmCpq7ToQ/yf4bl5SbVAvwpspYJ+v3jO7n8UyjhQVHTy+KNszOozDdv+O6sovQ=="
+  "resolved" "https://registry.npmjs.org/@types/node/-/node-14.18.10.tgz"
+  "version" "14.18.10"
 
 "@types/qs@*":
   "integrity" "sha512-FGa1F62FT09qcrueBA6qYTrJPVDzah9a+493+o2PCXsesWHIn27G98TsSMs3WPNbZIEj4+VJf6saSFpvD+3Zsw=="
@@ -449,6 +467,36 @@
   dependencies:
     "jsonparse" "^1.2.0"
     "through" ">=2.2.7 <3"
+
+"lodash.escaperegexp@^4.1.2":
+  "integrity" "sha1-ZHYsSGGAglGKw99Mz11YhtriA0c="
+  "resolved" "https://registry.npmjs.org/lodash.escaperegexp/-/lodash.escaperegexp-4.1.2.tgz"
+  "version" "4.1.2"
+
+"lodash.groupby@^4.6.0":
+  "integrity" "sha1-Cwih3PaDl8OXhVwyOXg4Mt90A9E="
+  "resolved" "https://registry.npmjs.org/lodash.groupby/-/lodash.groupby-4.6.0.tgz"
+  "version" "4.6.0"
+
+"lodash.isfunction@^3.0.9":
+  "integrity" "sha512-AirXNj15uRIMMPihnkInB4i3NHeb4iBtNg9WRWuK2o31S+ePwwNmDPaTL3o7dTJ+VXNZim7rFs4rxN4YU1oUJw=="
+  "resolved" "https://registry.npmjs.org/lodash.isfunction/-/lodash.isfunction-3.0.9.tgz"
+  "version" "3.0.9"
+
+"lodash.isnil@^4.0.0":
+  "integrity" "sha1-SeKM1VkBNFjIFMVHnTxmOiG/qmw="
+  "resolved" "https://registry.npmjs.org/lodash.isnil/-/lodash.isnil-4.0.0.tgz"
+  "version" "4.0.0"
+
+"lodash.isundefined@^3.0.1":
+  "integrity" "sha1-I+89lTVWUgOmbO/VuDD4SJEa+0g="
+  "resolved" "https://registry.npmjs.org/lodash.isundefined/-/lodash.isundefined-3.0.1.tgz"
+  "version" "3.0.1"
+
+"lodash.uniq@^4.5.0":
+  "integrity" "sha1-0CJTc662Uq3BvILklFM5qEJ1R3M="
+  "resolved" "https://registry.npmjs.org/lodash.uniq/-/lodash.uniq-4.5.0.tgz"
+  "version" "4.5.0"
 
 "lodash@^4.17.20":
   "integrity" "sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg=="
